@@ -32,7 +32,7 @@
     .font-cursive { font-family: 'Great Vibes', cursive; }
     .font-luxury { font-family: 'Cinzel', serif; }
 
-    /* Responsive App Container (Mobile Full-Width, Centered Frame sa Laptop) */
+    /* Responsive App Container */
     .app-viewport {
       width: 100%;
       max-width: 480px;
@@ -67,6 +67,16 @@
 
     .smooth-transition {
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Vinyl Spinning Animation */
+    @keyframes spinVinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .spinning {
+      animation: spinVinyl 8s linear infinite;
     }
 
     /* Floating Hearts Animation */
@@ -104,20 +114,39 @@
         <p class="text-xs text-gray-400 font-light mt-1">To my endless love & soulmate ❤️</p>
       </div>
 
-      <!-- 🎵 Updated Spotify Player Card -->
-      <div class="glass-card p-5 rounded-3xl">
-        <p class="text-[10px] uppercase tracking-widest text-rose-300 font-semibold mb-3">Our Song</p>
-        <div class="rounded-2xl overflow-hidden shadow-2xl border border-rose-500/20">
-          <iframe 
-            style="border-radius:12px" 
-            src="https://open.spotify.com/embed/track/7nbIGbDitZIYoMrMsXunAu?utm_source=generator&theme=0" 
-            width="100%" 
-            height="152" 
-            frameBorder="0" 
-            allowfullscreen="" 
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-            loading="lazy">
-          </iframe>
+      <!-- 🎵 Custom Luxury Music Player Card -->
+      <div class="glass-card p-6 rounded-3xl relative overflow-hidden">
+        <p class="text-[10px] uppercase tracking-widest text-rose-300 font-semibold mb-4">Our Special Soundtrack 🎶</p>
+
+        <!-- Hidden Native Audio Element -->
+        <audio id="main-audio" src="./gitara.mp3" preload="metadata"></audio>
+
+        <div class="flex items-center gap-4 bg-black/40 p-4 rounded-2xl border border-rose-500/20 backdrop-blur-md">
+          
+          <!-- Vinyl Disc Art -->
+          <div class="relative flex-shrink-0">
+            <div id="vinyl-disc" class="w-16 h-16 rounded-full bg-gradient-to-tr from-rose-950 via-zinc-900 to-rose-900 border-2 border-rose-400/40 flex items-center justify-center shadow-lg transition-all">
+              <div class="w-6 h-6 rounded-full bg-black border border-rose-300/40 flex items-center justify-center">
+                <div class="w-2 h-2 rounded-full bg-rose-400"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Song Details & Controls -->
+          <div class="flex-1 text-left overflow-hidden">
+            <h4 class="text-sm font-semibold text-rose-100 truncate">Gitara</h4>
+            <p class="text-[11px] text-gray-400 truncate mb-2">Parokya ni Edgar</p>
+            
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden cursor-pointer" id="progress-container">
+              <div id="progress-bar" class="bg-gradient-to-r from-rose-500 to-amber-300 h-full w-0 transition-all duration-150"></div>
+            </div>
+          </div>
+
+          <!-- Play/Pause Button -->
+          <button id="play-btn" onclick="togglePlay()" class="w-12 h-12 rounded-full bg-gradient-to-r from-rose-600 to-pink-600 text-white flex items-center justify-center shadow-xl border border-rose-400/40 active:scale-90 transition-all">
+            <span id="play-icon" class="text-lg ml-0.5">▶</span>
+          </button>
         </div>
       </div>
 
@@ -200,7 +229,47 @@
     const diffDays = Math.ceil(Math.abs(today - startDate) / (1000 * 60 * 60 * 24));
     document.getElementById('days-counter').innerText = diffDays;
 
-    // 2. Toggle Secret Letter
+    // 2. Audio Player Logic
+    const audio = document.getElementById('main-audio');
+    const playIcon = document.getElementById('play-icon');
+    const vinyl = document.getElementById('vinyl-disc');
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.getElementById('progress-container');
+
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          playIcon.innerText = '⏸';
+          vinyl.classList.add('spinning');
+        }).catch(err => {
+          console.log("Audio playback failed: ", err);
+        });
+      } else {
+        audio.pause();
+        playIcon.innerText = '▶';
+        vinyl.classList.remove('spinning');
+      }
+    }
+
+    // Update Progress Bar
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        const progressPercent = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = `${progressPercent}%`;
+      }
+    });
+
+    // Click Progress Bar to Seek
+    progressContainer.addEventListener('click', (e) => {
+      const width = progressContainer.clientWidth;
+      const clickX = e.offsetX;
+      const duration = audio.duration;
+      if (duration) {
+        audio.currentTime = (clickX / width) * duration;
+      }
+    });
+
+    // 3. Toggle Secret Letter
     const letterBtn = document.getElementById('letter-btn');
     const letterContent = document.getElementById('letter-content');
     const letterText = document.getElementById('letter-btn-text');
@@ -212,6 +281,11 @@
         letterContent.classList.remove('hidden');
         letterText.innerText = 'Close Letter';
         letterIcon.innerText = '🥀';
+
+        // Autoplay song if not playing yet
+        if (audio.paused) {
+          togglePlay();
+        }
 
         // Confetti Burst
         confetti({
@@ -227,7 +301,7 @@
       }
     });
 
-    // 3. Gallery Like Function
+    // 4. Gallery Like Function
     function likeMemory(btn) {
       const countSpan = btn.querySelector('.like-count');
       let currentLikes = parseInt(countSpan.innerText);
@@ -241,7 +315,7 @@
       });
     }
 
-    // 4. Generate Floating Background Hearts
+    // 5. Generate Floating Background Hearts
     const bgContainer = document.getElementById('heart-bg');
     for (let i = 0; i < 12; i++) {
       const heart = document.createElement('div');
