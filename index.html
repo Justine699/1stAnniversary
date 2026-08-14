@@ -1,83 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUZXE GARAGE | Luxury Automotive</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Happy 1st Anniversary! </title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+
+  <!-- Fonts & Styling Libraries -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #090514;
+      color: #f8fafc;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .font-cursive { font-family: 'Great Vibes', cursive; }
+    .font-luxury { font-family: 'Cinzel', serif; }
+
+    /* Responsive Device Wrapper Logic */
+    .app-viewport {
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1rem;
+    }
+
+    /* Laptop/Desktop Resolution Fix */
+    @media (min-width: 768px) {
+      .app-viewport {
+        max-width: 480px;
+        margin: 0 auto;
+        min-height: 100vh;
+        box-shadow: 0 0 50px rgba(244, 63, 94, 0.15);
+      }
+    }
+
+    /* Glassmorphism Cards */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .gold-glow {
+      box-shadow: 0 0 30px rgba(244, 114, 182, 0.25);
+    }
+
+    /* CSS Smooth Transitions */
+    .smooth-transition {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Floating Hearts Animation */
+    @keyframes floatHeart {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      50% { opacity: 0.6; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+    .floating-heart {
+      position: fixed;
+      pointer-events: none;
+      animation: floatHeart 8s linear infinite;
+      color: rgba(244, 63, 94, 0.3);
+      z-index: 0;
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <div class="navbar">
-            <a href="index.html" class="logo">LUZXE GARAGE</a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="products.html">Collection</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html" class="btn-nav-luxury">Book Consultation</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <!-- 💖 Floating Heart Particles BG -->
+  <div id="heart-bg"></div>
 
-    <section class="hero">
-        <video autoplay muted loop playsinline class="hero-video">
-            <source src="videos/background 2.mp4" type="video/mp4">
-        </video>
+  <!-- 🎧 Sound Toggle Button -->
+  <button id="music-btn" class="fixed top-4 right-4 z-50 bg-rose-500/20 backdrop-blur-xl border border-rose-500/40 text-rose-300 px-4 py-2 rounded-full shadow-2xl text-xs font-medium tracking-wide transition-transform active:scale-95">
+    Play Music
+  </button>
+
+  <!-- Responsive App Viewport Container -->
+  <div class="app-viewport">
+    <main class="w-full z-10 flex flex-col gap-6 py-4 text-center my-auto">
+
+      <!-- 🌟 Title Section -->
+      <div class="glass-card p-6 rounded-3xl gold-glow mt-8">
+        <p class="text-xs uppercase tracking-widest text-rose-300 font-luxury mb-1 animate-pulse">
+          Celebrating Our Love
+        </p>
+        <h1 class="text-4xl sm:text-5xl font-cursive text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-pink-400 to-amber-200 py-1">
+          Happy 1st Anniversary
+        </h1>
+        <p class="text-xs text-gray-400 font-light mt-1">To my endless love & soulmate ❤️</p>
+      </div>
+
+      <!-- ⏳ Counter Card -->
+      <div class="glass-card p-6 rounded-3xl">
+        <p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-2">Days Of Happiness</p>
+        <h2 id="days-counter" class="text-5xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-300 to-amber-100">
+          365
+        </h2>
+        <p class="text-xs text-rose-300/80 mt-2 italic font-cursive text-lg">...and a lifetime more to go ✨</p>
+      </div>
+
+      <!-- 💌 Interactive Letter Card -->
+      <div class="glass-card p-6 rounded-3xl">
+        <h3 class="text-xs font-luxury tracking-widest text-rose-300 uppercase mb-4">A Message From My Heart</h3>
         
-        <div class="hero-overlay"></div>
-        
-        <div class="hero-content">
-            <p class="hero-subtitle">Beyond Performance</p>
-            <h1>The Gold Standard <br> of Performance</h1>
-            <a href="#inventory" class="btn-primary">Explore Inventory</a>
+        <button id="letter-btn" class="w-full bg-gradient-to-r from-rose-600 via-pink-600 to-rose-700 text-white text-xs font-semibold uppercase tracking-wider py-3.5 rounded-2xl shadow-xl border border-rose-400/30 flex items-center justify-center gap-2 active:scale-95 transition-all">
+          <span id="letter-btn-text">Open Letter</span>
+          <span id="letter-btn-icon">💌</span>
+        </button>
+
+        <div id="letter-content" class="hidden mt-4 text-left smooth-transition">
+          <div class="p-5 bg-gradient-to-b from-rose-950/50 to-black/70 rounded-2xl text-xs leading-relaxed text-rose-100 border border-rose-500/30 backdrop-blur-xl shadow-inner">
+            <p class="font-cursive text-2xl text-amber-200 mb-2">My Dearest,</p>
+            <p class="leading-6 text-gray-200">
+              Happy 1st Anniversary! Thank you for bringing so much brightness, comfort, and unconditional love into my life every single day. Being with you makes every moment feel like a dream. Here's to us, to all our sweet memories, and to forever! 🌹
+            </p>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <section class="section-dark" id="inventory">
-        <div class="container">
-            <h2 class="archive-title">The Best Collection</h2>
-            
-            <div class="grid-3-cols">
-                <div class="card">
-                    <div class="card-image-container">
-                        <img src="images/9111.png" alt="911 Carrera S">
-                    </div>
-                    <div class="card-info">
-                        <h3>911 Carrera S</h3>
-                        <p>Pure engineering perfection in every curve.</p>
-                        <a href="#" class="view-detail">View Detail</a>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-image-container">
-                        <img src="images/maybach.png" alt="S-Class Maybach">
-                    </div>
-                    <div class="card-info">
-                        <h3>S-Class Maybach</h3>
-                        <p>The pinnacle of luxury automotive travel.</p>
-                        <a href="#" class="view-detail">View Detail</a>
-                    </div>
-                </div>
-
-                <div class="card placeholder-card">
-                    <div class="card-info">
-                        <h3>Coming Soon</h3>
-                        <p>Discover the next masterpiece.</p>
-                    </div>
-                </div>
+      <!-- 📸 Photo Gallery -->
+      <div class="glass-card p-6 rounded-3xl">
+        <h3 class="text-xs font-luxury tracking-widest text-rose-300 uppercase mb-4">Favorite Moments</h3>
+        <div class="flex flex-col gap-4">
+          
+          <!-- Photo 1 -->
+          <div class="bg-black/50 rounded-2xl overflow-hidden border border-white/10 shadow-lg">
+            <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500" alt="First Date" class="w-full h-44 sm:h-48 object-cover">
+            <div class="p-4 flex justify-between items-center text-left">
+              <div>
+                <p class="text-sm font-semibold text-white">Our First Date</p>
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-0.5">Day 1</p>
+              </div>
+              <button onclick="likeMemory(this)" class="flex items-center gap-1.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs px-4 py-2 rounded-full border border-rose-500/30 active:scale-125 transition-all">
+                ❤️ <span class="like-count font-bold">0</span>
+              </button>
             </div>
-        </div>
-    </section>
+          </div>
 
+          <!-- Photo 2 -->
+          <div class="bg-black/50 rounded-2xl overflow-hidden border border-white/10 shadow-lg">
+            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500" alt="Unforgettable Trip" class="w-full h-44 sm:h-48 object-cover">
+            <div class="p-4 flex justify-between items-center text-left">
+              <div>
+                <p class="text-sm font-semibold text-white">Unforgettable Trip</p>
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-0.5">Day 120</p>
+              </div>
+              <button onclick="likeMemory(this)" class="flex items-center gap-1.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs px-4 py-2 rounded-full border border-rose-500/30 active:scale-125 transition-all">
+                ❤️ <span class="like-count font-bold">0</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="text-[10px] text-gray-500 tracking-widest uppercase mt-2 pb-4">
+        Forever & Always With You
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- 🛠️ JavaScript Logic -->
+  <script>
+    // 1. Calculate Days Together
+    const startDate = new Date('2025-08-15T00:00:00');
+    const today = new Date();
+    const diffDays = Math.ceil(Math.abs(today - startDate) / (1000 * 60 * 60 * 24));
+    document.getElementById('days-counter').innerText = diffDays;
+
+    // 2. Audio Setup
+    const audio = new Audio('https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3');
+    audio.loop = true;
+    let isPlaying = false;
+
+    const musicBtn = document.getElementById('music-btn');
+    musicBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        audio.pause();
+        musicBtn.innerText = 'Play Music';
+      } else {
+        audio.play();
+        musicBtn.innerText = ' Pause Music';
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // 3. Toggle Secret Letter
+    const letterBtn = document.getElementById('letter-btn');
+    const letterContent = document.getElementById('letter-content');
+    const letterText = document.getElementById('letter-btn-text');
+    const letterIcon = document.getElementById('letter-btn-icon');
+
+    letterBtn.addEventListener('click', () => {
+      const isHidden = letterContent.classList.contains('hidden');
+      if (isHidden) {
+        letterContent.classList.remove('hidden');
+        letterText.innerText = 'Close Letter';
+        letterIcon.innerText = '🥀';
+        
+        if (!isPlaying) {
+          audio.play();
+          musicBtn.innerText = '🎵 Pause Music';
+          isPlaying = true;
+        }
+
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#f43f5e', '#fb7185', '#fda4af', '#fef08a']
+        });
+      } else {
+        letterContent.classList.add('hidden');
+        letterText.innerText = 'Open Letter';
+        letterIcon.innerText = '💌';
+      }
+    });
+
+    // 4. Gallery Like Function
+    function likeMemory(btn) {
+      const countSpan = btn.querySelector('.like-count');
+      let currentLikes = parseInt(countSpan.innerText);
+      countSpan.innerText = currentLikes + 1;
+
+      confetti({
+        particleCount: 25,
+        spread: 50,
+        origin: { y: 0.8 },
+        colors: ['#f43f5e', '#ffffff']
+      });
+    }
+
+    // 5. Generate Floating Background Hearts
+    const bgContainer = document.getElementById('heart-bg');
+    for (let i = 0; i < 12; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerText = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDelay = Math.random() * 5 + 's';
+      heart.style.fontSize = (Math.random() * 15 + 12) + 'px';
+      bgContainer.appendChild(heart);
+    }
+  </script>
 </body>
 </html>
-
-
-
