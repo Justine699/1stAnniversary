@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Happy 1st Anniversary! </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Happy 1st Anniversary! ❤️</title>
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
 
@@ -17,43 +17,42 @@
       box-sizing: border-box;
     }
 
-    body {
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
       font-family: 'Poppins', sans-serif;
       background: #090514;
       color: #f8fafc;
-      min-height: 100vh;
-      min-height: 100dvh;
-      overflow-x: hidden;
-      margin: 0;
-      padding: 0;
     }
     
     .font-cursive { font-family: 'Great Vibes', cursive; }
     .font-luxury { font-family: 'Cinzel', serif; }
 
-    /* Responsive Device Wrapper Logic */
+    /* Responsive App Container (Mobile Full-Width, Centered Frame sa Laptop) */
     .app-viewport {
       width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 1rem;
       min-height: 100vh;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 1rem;
     }
 
-    /* Laptop/Desktop Resolution Fix */
     @media (min-width: 768px) {
       .app-viewport {
-        max-width: 480px;
-        margin: 0 auto;
-        min-height: 100vh;
-        box-shadow: 0 0 50px rgba(244, 63, 94, 0.15);
+        box-shadow: 0 0 60px rgba(244, 63, 94, 0.12);
       }
     }
 
-    /* Glassmorphism Cards */
+    /* Glassmorphism Styling */
     .glass-card {
       background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(20px);
@@ -66,7 +65,6 @@
       box-shadow: 0 0 30px rgba(244, 114, 182, 0.25);
     }
 
-    /* CSS Smooth Transitions */
     .smooth-transition {
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -88,20 +86,15 @@
 </head>
 <body>
 
-  <!-- 💖 Floating Heart Particles BG -->
+  <!-- 💖 Background Animated Hearts -->
   <div id="heart-bg"></div>
 
-  <!-- 🎧 Sound Toggle Button -->
-  <button id="music-btn" class="fixed top-4 right-4 z-50 bg-rose-500/20 backdrop-blur-xl border border-rose-500/40 text-rose-300 px-4 py-2 rounded-full shadow-2xl text-xs font-medium tracking-wide transition-transform active:scale-95">
-    Play Music
-  </button>
-
-  <!-- Responsive App Viewport Container -->
+  <!-- Main Viewport Container -->
   <div class="app-viewport">
     <main class="w-full z-10 flex flex-col gap-6 py-4 text-center my-auto">
 
-      <!-- 🌟 Title Section -->
-      <div class="glass-card p-6 rounded-3xl gold-glow mt-8">
+      <!-- 🌟 Title Card -->
+      <div class="glass-card p-6 rounded-3xl gold-glow mt-4">
         <p class="text-xs uppercase tracking-widest text-rose-300 font-luxury mb-1 animate-pulse">
           Celebrating Our Love
         </p>
@@ -109,6 +102,23 @@
           Happy 1st Anniversary
         </h1>
         <p class="text-xs text-gray-400 font-light mt-1">To my endless love & soulmate ❤️</p>
+      </div>
+
+      <!-- 🎵 Spotify Player Card (Gitara - Parokya ni Edgar) -->
+      <div class="glass-card p-5 rounded-3xl">
+        <p class="text-[10px] uppercase tracking-widest text-rose-300 font-semibold mb-3">Our Song</p>
+        <div class="rounded-2xl overflow-hidden shadow-2xl border border-rose-500/20">
+          <iframe 
+            style="border-radius:12px" 
+            src="https://open.spotify.com/embed/track/25Y2GkP45l7B420CvhgKxX?utm_source=generator&theme=0" 
+            width="100%" 
+            height="152" 
+            frameBorder="0" 
+            allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+            loading="lazy">
+          </iframe>
+        </div>
       </div>
 
       <!-- ⏳ Counter Card -->
@@ -139,7 +149,7 @@
         </div>
       </div>
 
-      <!-- 📸 Photo Gallery -->
+      <!-- 📸 Photo Gallery Card -->
       <div class="glass-card p-6 rounded-3xl">
         <h3 class="text-xs font-luxury tracking-widest text-rose-300 uppercase mb-4">Favorite Moments</h3>
         <div class="flex flex-col gap-4">
@@ -190,24 +200,7 @@
     const diffDays = Math.ceil(Math.abs(today - startDate) / (1000 * 60 * 60 * 24));
     document.getElementById('days-counter').innerText = diffDays;
 
-    // 2. Audio Setup
-    const audio = new Audio('https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3');
-    audio.loop = true;
-    let isPlaying = false;
-
-    const musicBtn = document.getElementById('music-btn');
-    musicBtn.addEventListener('click', () => {
-      if (isPlaying) {
-        audio.pause();
-        musicBtn.innerText = 'Play Music';
-      } else {
-        audio.play();
-        musicBtn.innerText = ' Pause Music';
-      }
-      isPlaying = !isPlaying;
-    });
-
-    // 3. Toggle Secret Letter
+    // 2. Toggle Secret Letter
     const letterBtn = document.getElementById('letter-btn');
     const letterContent = document.getElementById('letter-content');
     const letterText = document.getElementById('letter-btn-text');
@@ -219,13 +212,8 @@
         letterContent.classList.remove('hidden');
         letterText.innerText = 'Close Letter';
         letterIcon.innerText = '🥀';
-        
-        if (!isPlaying) {
-          audio.play();
-          musicBtn.innerText = '🎵 Pause Music';
-          isPlaying = true;
-        }
 
+        // Confetti Burst
         confetti({
           particleCount: 80,
           spread: 70,
@@ -239,7 +227,7 @@
       }
     });
 
-    // 4. Gallery Like Function
+    // 3. Gallery Like Function
     function likeMemory(btn) {
       const countSpan = btn.querySelector('.like-count');
       let currentLikes = parseInt(countSpan.innerText);
@@ -253,7 +241,7 @@
       });
     }
 
-    // 5. Generate Floating Background Hearts
+    // 4. Generate Floating Background Hearts
     const bgContainer = document.getElementById('heart-bg');
     for (let i = 0; i < 12; i++) {
       const heart = document.createElement('div');
