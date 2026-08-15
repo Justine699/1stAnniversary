@@ -30,7 +30,7 @@
     .font-cursive { font-family: 'Great Vibes', cursive; }
     .font-luxury { font-family: 'Cinzel', serif; }
 
-    /* Responsive Container */
+    /* Responsive App Container */
     .app-viewport {
       width: 100%;
       max-width: 480px;
@@ -101,17 +101,15 @@
         <p class="text-xs text-gray-400 font-light mt-1">To my endless love & soulmate ❤️</p>
       </div>
 
-      <!-- 🎵 Music Player Card -->
+      <!-- 🎵 Custom Luxury Music Player Card (Fixed MP3 Link) -->
       <div class="glass-card p-6 rounded-3xl relative overflow-hidden">
         <p class="text-[10px] uppercase tracking-widest text-rose-300 font-semibold mb-4">Our Song 🎶</p>
 
-        <!-- HTML Audio Element (Direct File Path) -->
-        <audio id="main-audio" preload="auto">
-          <source src="./audio/gitara.mp3" type="audio/mpeg">
-          <source src="gitara.mp3" type="audio/mpeg">
-        </audio>
+        <!-- Direct Online Audio Stream link para sa Gitara -->
+        <audio id="main-audio" src="https://archive.org/download/JhePlalist/Parokya%20Ni%20Edgar%20-%20gitara.mp3" preload="auto" crossorigin="anonymous"></audio>
 
         <div class="flex items-center gap-4 bg-black/40 p-4 rounded-2xl border border-rose-500/20 backdrop-blur-md">
+          
           <!-- Vinyl Disc -->
           <div class="relative flex-shrink-0">
             <div id="vinyl-disc" class="w-14 h-14 rounded-full bg-gradient-to-tr from-rose-950 via-zinc-900 to-rose-900 border-2 border-rose-400/40 flex items-center justify-center shadow-lg transition-all">
@@ -121,7 +119,7 @@
             </div>
           </div>
 
-          <!-- Song Info -->
+          <!-- Song Info & Progress Bar -->
           <div class="flex-1 text-left overflow-hidden">
             <h4 class="text-sm font-semibold text-rose-100 truncate">Gitara</h4>
             <p class="text-[11px] text-gray-400 truncate mb-2">Parokya Ni Edgar</p>
@@ -135,8 +133,6 @@
             <span id="play-icon" class="text-lg">▶</span>
           </button>
         </div>
-        
-        <p id="audio-error-msg" class="text-[10px] text-rose-400/80 mt-2 hidden">⚠️ Tap Play button to start audio</p>
       </div>
 
       <!-- ⏳ Counter Card -->
@@ -289,7 +285,6 @@
         vinyl.classList.add('spinning');
       }).catch(err => {
         console.log("Play failed: ", err);
-        document.getElementById('audio-error-msg').classList.remove('hidden');
       });
     }
 
@@ -322,7 +317,7 @@
       }
     });
 
-    // 3. Secret Letter & Confetti
+    // 3. Secret Letter & Confetti Trigger
     const letterBtn = document.getElementById('letter-btn');
     const letterContent = document.getElementById('letter-content');
     const letterText = document.getElementById('letter-btn-text');
@@ -335,7 +330,7 @@
         letterText.innerText = 'Close Letter';
         letterIcon.innerText = '🥀';
 
-        // Automatic audio trigger upon interaction
+        // Auto play song on user interaction
         if (audio.paused) {
           playAudio();
         }
@@ -380,4 +375,4 @@
     }
   </script>
 </body>
-</html>
+  </html>
